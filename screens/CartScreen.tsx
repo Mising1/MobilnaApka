@@ -48,7 +48,7 @@ export const CartScreen = ({route, navigation} :any) => {
             {shop.map(e => {
               return (
                 <Fragment key={e.id}>
-                  <ItemCart title={e.title} price={e.price} />
+                  <ItemCart image={e.image} title={e.title} price={e.price} />
                 </Fragment>
               );
             })}

@@ -15,40 +15,38 @@ export function ProductScreen({route, navigation}: any) {
         <TouchableOpacity
           style={styles.back}
           onPress={() => navigation.navigate('Home')}>
-          <Image  source={require('../img/back.png')}></Image>
+          <Image source={require('../img/back.png')}></Image>
         </TouchableOpacity>
-        <Image source={zdj}></Image>
-        <View style={styles.textCont}>
-          <Text style={{fontWeight: 'bold', fontSize: 25, alignSelf: 'center'}}>
+        <Image source={zdj} style={{width: null, flex: 1, height:null,resizeMode:'contain'}}></Image>
+          <Text style={{fontWeight: 'bold', fontSize: 25}}>
             {route.params.title}
           </Text>
-              <Pressable style={{
-                  backgroundColor: '#ff00bf',
-                  borderRadius: 25,
-                  paddingHorizontal: 10,
-                  paddingVertical: 5,
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  columnGap:6
-                  
-                }}>
-                <Image source={require('../img/hearth.png')}></Image>
-    
-              </Pressable>
+        <View style={styles.textCont}>
+          <Pressable
+            style={{
+              backgroundColor: '#ff00bf',
+              borderRadius: 25,
+              paddingHorizontal: 10,
+              paddingVertical: 5,
+              alignItems: 'center',
+              flexDirection: 'row',
+              columnGap: 6,
+            }}>
+            <Image source={require('../img/hearth.png')}></Image>
+          </Pressable>
 
-              <Pressable style={{
-                  backgroundColor: '#4eff26',
-                  borderRadius: 25,
-                  paddingHorizontal: 10,
-                  paddingVertical: 5,
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  columnGap:6
-                  
-                }}>
-                <Image source={require('../img/bookmark.png')}></Image>
-    
-              </Pressable>
+          <Pressable
+            style={{
+              backgroundColor: '#4eff26',
+              borderRadius: 25,
+              paddingHorizontal: 10,
+              paddingVertical: 5,
+              alignItems: 'center',
+              flexDirection: 'row',
+              columnGap: 6,
+            }}>
+            <Image source={require('../img/bookmark.png')}></Image>
+          </Pressable>
           <Pressable
             style={{
               backgroundColor: '#F64141',
@@ -57,23 +55,21 @@ export function ProductScreen({route, navigation}: any) {
               paddingVertical: 5,
               alignItems: 'center',
               flexDirection: 'row',
-              columnGap:6
-              
+              columnGap: 6,
             }}>
-            <Text style={{fontWeight: 'bold', fontSize: 20, color:'#fff'}}>
+            <Text style={{fontWeight: 'bold', fontSize: 20, color: '#fff'}}>
               {route.params.price}$
             </Text>
             <Image source={require('../img/bx-cart.png')}></Image>
           </Pressable>
         </View>
         <View style={styles.descCont}>
-
-        <Text style={{fontSize: 18, color: '#fff',}}>
-          Description: Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Consectetur maxime ex, nisi dignissimos architecto recusandae,
-          obcaecati, numquam non excepturi aliquam autem voluptas ducimus a
-          earum eveniet asperiores labore exercitationem consequatur.
-        </Text>
+          <Text style={{fontSize: 18, color: '#fff'}}>
+            Description: Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Consectetur maxime ex, nisi dignissimos architecto recusandae,
+            obcaecati, numquam non excepturi aliquam autem voluptas ducimus a
+            earum eveniet asperiores labore exercitationem consequatur.
+          </Text>
         </View>
       </View>
     </View>
@@ -104,10 +100,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     paddingBottom: 25,
   },
-  descCont:{
+  descCont: {
     backgroundColor: '#F64141',
     padding: 10,
     borderRadius: 25,
-    marginTop:10
-  }
+    marginTop: 10,
+  },
 });
