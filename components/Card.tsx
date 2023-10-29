@@ -24,10 +24,10 @@ export function Card(props: CardProps) {
       price: props.price,
       image: props.image
     });
-  console.log(props);
+  
 
   const zdj = props.image;
-  console.log(zdj);
+
 
   return (
     <Pressable style={styles.card} onPress={product}>

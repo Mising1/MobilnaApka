@@ -3,9 +3,9 @@ import {Image, StyleSheet, View, Text, Pressable} from 'react-native';
 export function ItemCart(props: any) {
   return (
     <View style={styles.item}>
-      <Image source={require('../img/but.png')}></Image>
+      <Image source={props.image} style={{resizeMode:'contain', width: 100}}></Image>
       <Text>{props.title}</Text>
-      <Text>{props.price}</Text>
+      <Text>{props.price}$</Text>
       <Pressable style={styles.trash}>
         <Image source={require('../img/trash.png')}></Image>
       </Pressable>
@@ -22,9 +22,10 @@ const styles = StyleSheet.create({
     height: 90,
     width: 320,
     shadowOffset: {width: -20, height: -10},
-    shadowRadius: 10,
+    shadowRadius: 30,
     shadowOpacity: 1,
     shadowColor: 'black',
+    elevation: 10,
    
   },
   trash: {
