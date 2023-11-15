@@ -64,3 +64,6 @@ yarn-error.log
 
 # testing
 /coverage
+
+backend/env
+backend/__pycache__

@@ -1,26 +1,34 @@
-import {StyleSheet, View, ScrollView, Text} from 'react-native';
+import {StyleSheet, View, ScrollView, Text, Button} from 'react-native';
 import {Menu} from '../components/Menu';
-import {Fragment, useState, useEffect} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import {Naglowek} from '../components/Naglowek';
+import axios from 'axios';
 
 import {Footer} from '../components/Footer';
-import {card, categories} from '../dane/dane';
+import {categories} from '../dane/dane';
 import {Card} from '../components/Card';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
-
+import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 
 interface HomeScreenProps {
   navigation: any;
 }
 
-
-
 export function HomeScreen(props: HomeScreenProps) {
-  
-  const [item, setItem] = useState(card);
+  const [przedmiot, ustawPrzedmiot] = useState([]);
   const [activeCategory, setActiveCategory] = useState(1);
 
-  
+  useEffect(() => {
+    axios
+      .get('http://10.0.2.2:5000/products')
+      .then(response => {
+        const res = response.data;
+        console.log(res);
+        ustawPrzedmiot(res);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <View style={styles.frame}>
@@ -29,50 +37,55 @@ export function HomeScreen(props: HomeScreenProps) {
         <Naglowek />
 
         {/* Kategorie */}
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={categories}
-          keyExtractor={item => item.title}
-          style={styles.kategorie}
-          renderItem={({item}) => {
-            let isActive = item.id == activeCategory;
-            return (
-              <TouchableOpacity
-                style={[
-                  isActive ? styles.button_active : styles.button_disabled,
-                  styles.but,
-                ]}
-                onPress={() => setActiveCategory(item.id)}>
-                <Text
+        <View style={{marginBottom:20, paddingBottom: 4}}>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={categories}
+            keyExtractor={item => item.title}
+            renderItem={({item}) => {
+              let isActive = item.id == activeCategory;
+              return (
+                <TouchableOpacity
                   style={[
-                    isActive ? styles.text_active : styles.text_disabled,
-                    styles.text,
-                  ]}>
-                  {item.title}
-                </Text>
-              </TouchableOpacity>
-            );
-          }}
-        />
+                    isActive ? styles.button_active : styles.button_disabled,
+                    styles.but,
+                  ]}
+                  onPress={() => setActiveCategory(item.id)}>
+                  <Text
+                    style={[
+                      isActive ? styles.text_active : styles.text_disabled,
+                      styles.text,
+                    ]}>
+                    {item.title}
+                  </Text>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
 
         {/* BOX */}
         <ScrollView>
-          <View style={styles.box}>
-            {item.map(e => {
-              return (
-                <Fragment key={e.id}>
-                  <Card
-                    id={e.id}
-                    title={e.title}
-                    price={e.price}
-                    image={e.image}
-                    nav={props.navigation}
-                  />
-                </Fragment>
-              );
-            })}
-          </View>
+          {przedmiot.length > 0 ? (
+            <View style={styles.box}>
+              {przedmiot.map(e => {
+                return (
+                  <Fragment key={e['id']['$oid']}>
+                    <Card
+                      id={e['id']['$oid']}
+                      title={e['produkt']}
+                      price={e['cena']}
+                      image={require('../img/nike.png')}
+                      nav={props.navigation}
+                    />
+                  </Fragment>
+                );
+              })}
+            </View>
+          ) : (
+            <Text>nic</Text>
+          )}
         </ScrollView>
       </View>
       <Footer />
@@ -96,7 +109,6 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
   },
   box: {
-    flex: 1,
     flexWrap: 'wrap',
     rowGap: 30,
     flexDirection: 'row',
@@ -104,7 +116,7 @@ const styles = StyleSheet.create({
   },
   kategorie: {
     marginTop: 10,
-    height: 40,
+    height: 0,
   },
   button_active: {
     backgroundColor: '#F64141',
