@@ -1,1 +1,1 @@
-Mobile app (in progress) to shop shoes
+Mobile app (in progress)
